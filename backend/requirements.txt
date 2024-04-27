@@ -1,0 +1,7 @@
+Django==4.2
+djangorestframework
+django-phonenumber-field[phonenumbers]
+PyJWT
+django-cors-headers
+gunicorn
+psycopg2-binary

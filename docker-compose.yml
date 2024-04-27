@@ -1,0 +1,44 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    image: frontend-image
+    container_name: frontend-service
+    restart: always
+    ports:
+      - "80:3000"
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
+    env_file:
+      - .env
+    environment:
+      - MODE=dev
+    networks:
+      - corelab_network
+
+  backend:
+    build: ./backend/.
+    image: backend-image
+    container_name: backend-service
+    restart: always
+    ports:
+      - "8080:8000"
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env
+    environment:
+      - MODE=dev
+    networks:
+      - corelab_network
+
+volumes:
+  postgres_data:
+    name: postgres_data
+
+networks:
+  corelab_network:
+    driver: bridge

@@ -1,0 +1,47 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.deploy
+    image: frontend-image
+    container_name: frontend-service
+    restart: always
+    ports:
+      - "80:3000"
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend/.
+    image: backend-image
+    container_name: backend-service
+    restart: always
+    ports:
+      - "8080:8000"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+  db:
+    image: postgres:alpine3.18
+    container_name: db-service
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    restart: always
+    ports:
+      - "2000:5432"
+    env_file:
+      - .env
+
+volumes:
+  postgres_data:
+    name: postgres_data
+
+networks:
+  corelab_network:
+    driver: bridge

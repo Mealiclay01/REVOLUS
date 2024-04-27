@@ -1,0 +1,8 @@
+FROM oven/bun:canary
+
+WORKDIR /app
+
+EXPOSE 3000
+
+CMD ["bash", "-c", "chmod +x ./dev.sh && ./dev.sh"]
+

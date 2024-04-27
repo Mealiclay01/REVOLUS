@@ -1,0 +1,9 @@
+{
+  "services_list": [
+    {
+      "name": "Test 1",
+      "id": 1,
+      "link": "/test-1"
+    }
+  ]
+}
